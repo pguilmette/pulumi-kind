@@ -11,6 +11,7 @@ require (
 	github.com/kyma-incubator/terraform-provider-kind v0.0.9
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.0.0
 	github.com/pulumi/pulumi/sdk/v3 v3.5.2-0.20210623115523-414367963f50
+	k8s.io/utils v0.0.0-20200619165400-6e3d28b6ed19 // indirect
 )
 
 replace (
