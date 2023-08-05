@@ -1,0 +1,1 @@
+examples/examples_go_test.go
