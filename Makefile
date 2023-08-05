@@ -12,9 +12,10 @@ TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         := $(shell pulumictl get version)
 
-TESTPARALLELISM := 4
+TESTPARALLELISM := 2
 
 WORKING_DIR     := $(shell pwd)
+PULUMI_ROOT     := /opt/pulumi
 
 OS := $(shell uname)
 EMPTY_TO_AVOID_SED :=
