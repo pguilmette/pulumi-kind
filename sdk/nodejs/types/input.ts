@@ -7,15 +7,18 @@ import { input as inputs, output as outputs } from "../types";
 export interface ClusterKindConfig {
     apiVersion: pulumi.Input<string>;
     containerdConfigPatches?: pulumi.Input<pulumi.Input<string>[]>;
+    featureGates?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     kind: pulumi.Input<string>;
     networking?: pulumi.Input<inputs.ClusterKindConfigNetworking>;
     nodes?: pulumi.Input<pulumi.Input<inputs.ClusterKindConfigNode>[]>;
+    runtimeConfig?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }
 
 export interface ClusterKindConfigNetworking {
     apiServerAddress?: pulumi.Input<string>;
     apiServerPort?: pulumi.Input<number>;
     disableDefaultCni?: pulumi.Input<boolean>;
+    dnsSearches?: pulumi.Input<pulumi.Input<string>[]>;
     ipFamily?: pulumi.Input<string>;
     kubeProxyMode?: pulumi.Input<string>;
     podSubnet?: pulumi.Input<string>;
@@ -27,12 +30,16 @@ export interface ClusterKindConfigNode {
     extraPortMappings?: pulumi.Input<pulumi.Input<inputs.ClusterKindConfigNodeExtraPortMapping>[]>;
     image?: pulumi.Input<string>;
     kubeadmConfigPatches?: pulumi.Input<pulumi.Input<string>[]>;
+    labels?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     role?: pulumi.Input<string>;
 }
 
 export interface ClusterKindConfigNodeExtraMount {
     containerPath?: pulumi.Input<string>;
     hostPath?: pulumi.Input<string>;
+    propagation?: pulumi.Input<string>;
+    readOnly?: pulumi.Input<boolean>;
+    selinuxRelabel?: pulumi.Input<boolean>;
 }
 
 export interface ClusterKindConfigNodeExtraPortMapping {

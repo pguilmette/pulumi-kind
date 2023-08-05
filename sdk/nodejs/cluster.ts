@@ -5,75 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * ## # kind.Cluster
- *
- * Provides a Kind cluster resource. This can be used to create and delete Kind
- * clusters. It does NOT support modification to an existing kind cluster.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as kind from "@pawelprazak/pulumi-kind";
- *
- * // Create a kind cluster of the name "test-cluster" with default kubernetes
- * // version specified in kind
- * // ref: https://github.com/kubernetes-sigs/kind/blob/master/pkg/apis/config/defaults/image.go#L21
- * const defaultCluster = new kind.Cluster("default", {});
- * ```
- *
- * To override the node image used:
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as kind from "@pawelprazak/pulumi-kind";
- *
- * // Create a cluster with kind of the name "test-cluster" with kubernetes version v1.16.1
- * const defaultCluster = new kind.Cluster("default", {
- *     nodeImage: "kindest/node:v1.16.1",
- * });
- * ```
- *
- * To override the default kind config:
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as kind from "@pawelprazak/pulumi-kind";
- *
- * // creating a cluster with kind of the name "test-cluster" with kubernetes version v1.18.4 and two nodes
- * const defaultCluster = new kind.Cluster("default", {
- *     kindConfig: {
- *         apiVersion: "kind.x-k8s.io/v1alpha4",
- *         kind: "Cluster",
- *         nodes: [
- *             {
- *                 role: "control-plane",
- *             },
- *             {
- *                 role: "worker",
- *             },
- *         ],
- *     },
- *     nodeImage: "kindest/node:v1.18.4",
- * });
- * ```
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as kind from "@pawelprazak/pulumi-kind";
- *
- * // Create a cluster with patches applied to the containerd config
- * const defaultCluster = new kind.Cluster("default", {
- *     kindConfig: {
- *         containerdConfigPatches: [`[plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
- *     endpoint = ["http://kind-registry:5000"]
- * `],
- *     },
- *     nodeImage: "kindest/node:v1.16.1",
- * });
- * ```
- */
 export class Cluster extends pulumi.CustomResource {
     /**
      * Get an existing Cluster resource's state with the given name, ID, and optional extra
@@ -115,6 +46,10 @@ export class Cluster extends pulumi.CustomResource {
      */
     public /*out*/ readonly clusterCaCertificate!: pulumi.Output<string>;
     /**
+     * Cluster successfully created.
+     */
+    public /*out*/ readonly completed!: pulumi.Output<boolean>;
+    /**
      * Kubernetes APIServer endpoint.
      */
     public /*out*/ readonly endpoint!: pulumi.Output<string>;
@@ -135,7 +70,7 @@ export class Cluster extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * The nodeImage that kind will use (ex: kindest/node:v1.15.3).
+     * The nodeImage that kind will use (ex: kindest/node:v1.27.1).
      */
     public readonly nodeImage!: pulumi.Output<string>;
     /**
@@ -152,37 +87,39 @@ export class Cluster extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ClusterArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ClusterArgs | ClusterState, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ClusterState | undefined;
-            inputs["clientCertificate"] = state ? state.clientCertificate : undefined;
-            inputs["clientKey"] = state ? state.clientKey : undefined;
-            inputs["clusterCaCertificate"] = state ? state.clusterCaCertificate : undefined;
-            inputs["endpoint"] = state ? state.endpoint : undefined;
-            inputs["kindConfig"] = state ? state.kindConfig : undefined;
-            inputs["kubeconfig"] = state ? state.kubeconfig : undefined;
-            inputs["kubeconfigPath"] = state ? state.kubeconfigPath : undefined;
-            inputs["name"] = state ? state.name : undefined;
-            inputs["nodeImage"] = state ? state.nodeImage : undefined;
-            inputs["waitForReady"] = state ? state.waitForReady : undefined;
+            resourceInputs["clientCertificate"] = state ? state.clientCertificate : undefined;
+            resourceInputs["clientKey"] = state ? state.clientKey : undefined;
+            resourceInputs["clusterCaCertificate"] = state ? state.clusterCaCertificate : undefined;
+            resourceInputs["completed"] = state ? state.completed : undefined;
+            resourceInputs["endpoint"] = state ? state.endpoint : undefined;
+            resourceInputs["kindConfig"] = state ? state.kindConfig : undefined;
+            resourceInputs["kubeconfig"] = state ? state.kubeconfig : undefined;
+            resourceInputs["kubeconfigPath"] = state ? state.kubeconfigPath : undefined;
+            resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["nodeImage"] = state ? state.nodeImage : undefined;
+            resourceInputs["waitForReady"] = state ? state.waitForReady : undefined;
         } else {
             const args = argsOrState as ClusterArgs | undefined;
-            inputs["kindConfig"] = args ? args.kindConfig : undefined;
-            inputs["kubeconfigPath"] = args ? args.kubeconfigPath : undefined;
-            inputs["name"] = args ? args.name : undefined;
-            inputs["nodeImage"] = args ? args.nodeImage : undefined;
-            inputs["waitForReady"] = args ? args.waitForReady : undefined;
-            inputs["clientCertificate"] = undefined /*out*/;
-            inputs["clientKey"] = undefined /*out*/;
-            inputs["clusterCaCertificate"] = undefined /*out*/;
-            inputs["endpoint"] = undefined /*out*/;
-            inputs["kubeconfig"] = undefined /*out*/;
+            resourceInputs["kindConfig"] = args ? args.kindConfig : undefined;
+            resourceInputs["kubeconfigPath"] = args ? args.kubeconfigPath : undefined;
+            resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["nodeImage"] = args ? args.nodeImage : undefined;
+            resourceInputs["waitForReady"] = args ? args.waitForReady : undefined;
+            resourceInputs["clientCertificate"] = undefined /*out*/;
+            resourceInputs["clientKey"] = undefined /*out*/;
+            resourceInputs["clusterCaCertificate"] = undefined /*out*/;
+            resourceInputs["completed"] = undefined /*out*/;
+            resourceInputs["endpoint"] = undefined /*out*/;
+            resourceInputs["kubeconfig"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Cluster.__pulumiType, name, inputs, opts);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["kubeconfig"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
+        super(Cluster.__pulumiType, name, resourceInputs, opts);
     }
 }
 
@@ -193,43 +130,47 @@ export interface ClusterState {
     /**
      * Client certificate for authenticating to cluster.
      */
-    readonly clientCertificate?: pulumi.Input<string>;
+    clientCertificate?: pulumi.Input<string>;
     /**
      * Client key for authenticating to cluster.
      */
-    readonly clientKey?: pulumi.Input<string>;
+    clientKey?: pulumi.Input<string>;
     /**
      * Client verifies the server certificate with this CA cert.
      */
-    readonly clusterCaCertificate?: pulumi.Input<string>;
+    clusterCaCertificate?: pulumi.Input<string>;
+    /**
+     * Cluster successfully created.
+     */
+    completed?: pulumi.Input<boolean>;
     /**
      * Kubernetes APIServer endpoint.
      */
-    readonly endpoint?: pulumi.Input<string>;
+    endpoint?: pulumi.Input<string>;
     /**
      * The kindConfig that kind will use.
      */
-    readonly kindConfig?: pulumi.Input<inputs.ClusterKindConfig>;
+    kindConfig?: pulumi.Input<inputs.ClusterKindConfig>;
     /**
      * The kubeconfig for the cluster after it is created
      */
-    readonly kubeconfig?: pulumi.Input<string>;
+    kubeconfig?: pulumi.Input<string>;
     /**
      * kubeconfig path set after the the cluster is created or by the user to override defaults.
      */
-    readonly kubeconfigPath?: pulumi.Input<string>;
+    kubeconfigPath?: pulumi.Input<string>;
     /**
      * The kind name that is given to the created cluster.
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
-     * The nodeImage that kind will use (ex: kindest/node:v1.15.3).
+     * The nodeImage that kind will use (ex: kindest/node:v1.27.1).
      */
-    readonly nodeImage?: pulumi.Input<string>;
+    nodeImage?: pulumi.Input<string>;
     /**
      * Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.
      */
-    readonly waitForReady?: pulumi.Input<boolean>;
+    waitForReady?: pulumi.Input<boolean>;
 }
 
 /**
@@ -239,21 +180,21 @@ export interface ClusterArgs {
     /**
      * The kindConfig that kind will use.
      */
-    readonly kindConfig?: pulumi.Input<inputs.ClusterKindConfig>;
+    kindConfig?: pulumi.Input<inputs.ClusterKindConfig>;
     /**
      * kubeconfig path set after the the cluster is created or by the user to override defaults.
      */
-    readonly kubeconfigPath?: pulumi.Input<string>;
+    kubeconfigPath?: pulumi.Input<string>;
     /**
      * The kind name that is given to the created cluster.
      */
-    readonly name?: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
-     * The nodeImage that kind will use (ex: kindest/node:v1.15.3).
+     * The nodeImage that kind will use (ex: kindest/node:v1.27.1).
      */
-    readonly nodeImage?: pulumi.Input<string>;
+    nodeImage?: pulumi.Input<string>;
     /**
      * Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.
      */
-    readonly waitForReady?: pulumi.Input<boolean>;
+    waitForReady?: pulumi.Input<boolean>;
 }

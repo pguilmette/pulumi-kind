@@ -7,15 +7,18 @@ import { input as inputs, output as outputs } from "../types";
 export interface ClusterKindConfig {
     apiVersion: string;
     containerdConfigPatches?: string[];
+    featureGates?: {[key: string]: string};
     kind: string;
     networking?: outputs.ClusterKindConfigNetworking;
     nodes?: outputs.ClusterKindConfigNode[];
+    runtimeConfig?: {[key: string]: string};
 }
 
 export interface ClusterKindConfigNetworking {
     apiServerAddress?: string;
     apiServerPort?: number;
     disableDefaultCni?: boolean;
+    dnsSearches?: string[];
     ipFamily?: string;
     kubeProxyMode?: string;
     podSubnet?: string;
@@ -27,12 +30,16 @@ export interface ClusterKindConfigNode {
     extraPortMappings?: outputs.ClusterKindConfigNodeExtraPortMapping[];
     image?: string;
     kubeadmConfigPatches?: string[];
+    labels?: {[key: string]: string};
     role?: string;
 }
 
 export interface ClusterKindConfigNodeExtraMount {
     containerPath?: string;
     hostPath?: string;
+    propagation?: string;
+    readOnly?: boolean;
+    selinuxRelabel?: boolean;
 }
 
 export interface ClusterKindConfigNodeExtraPortMapping {
@@ -41,3 +48,4 @@ export interface ClusterKindConfigNodeExtraPortMapping {
     listenAddress?: string;
     protocol?: string;
 }
+

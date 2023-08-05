@@ -1,17 +1,60 @@
 {
     "name": "kind",
-    "description": "A Pulumi package for creating and managing kind resources.",
+    "displayName": "Kind",
+    "description": "A Pulumi package for creating and managing kind cloud resources.",
     "keywords": [
         "pulumi",
-        "kind"
+        "kind",
+        "kubernetes",
+        "category/cloud"
     ],
-    "homepage": "https://pulumi.io",
+    "homepage": "https://www.pulumi.com",
     "license": "Apache-2.0",
-    "attribution": "This Pulumi package is based on the [`kind` Terraform Provider](https://github.com/kyma-incubator/terraform-provider-kind).",
-    "repository": "https://github.com/pawelprazak/pulumi-kind",
-    "pluginDownloadURL": "https://github.com/pawelprazak/pulumi-kind/releases/download/v0.0.1-alpha.1639496844+4e497e16.dirty",
+    "attribution": "This Pulumi package is based on the [`kind` Terraform Provider](https://github.com/tehcyx/terraform-provider-kind).",
+    "repository": "https://github.com/pguilmette/pulumi-kind",
+    "pluginDownloadURL": "github://api.github.com/pguilmette",
+    "publisher": "pguilmette",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*"
+            }
+        },
+        "go": {
+            "generateExtraInputTypes": true,
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/pguilmette/pulumi-kind/sdk/go/kind"
+        },
+        "java": {
+            "basePackage": "com.pguilmette"
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing kind cloud resources.",
+            "packageName": "@pguilmette/pulumi-kind",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/tehcyx/terraform-provider-kind)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kind` repo](https://github.com/pguilmette/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kind` repo](https://github.com/tehcyx/terraform-provider-kind/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/tehcyx/terraform-provider-kind)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kind` repo](https://github.com/pguilmette/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kind` repo](https://github.com/tehcyx/terraform-provider-kind/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
     },
     "config": {},
     "types": {
@@ -23,7 +66,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "containerdConfigPatches": {
                     "type": "array",
@@ -34,7 +78,20 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "featureGates": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "kind": {
                     "type": "string",
@@ -42,7 +99,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "networking": {
                     "$ref": "#/types/kind:index/ClusterKindConfigNetworking:ClusterKindConfigNetworking",
@@ -50,7 +108,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "nodes": {
                     "type": "array",
@@ -61,7 +120,20 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "runtimeConfig": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
                 }
             },
             "type": "object",
@@ -78,7 +150,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "apiServerPort": {
                     "type": "integer",
@@ -86,7 +159,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "disableDefaultCni": {
                     "type": "boolean",
@@ -94,7 +168,20 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "dnsSearches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "ipFamily": {
                     "type": "string",
@@ -102,7 +189,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "kubeProxyMode": {
                     "type": "string",
@@ -110,7 +198,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "podSubnet": {
                     "type": "string",
@@ -118,7 +207,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "serviceSubnet": {
                     "type": "string",
@@ -126,7 +216,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 }
             },
             "type": "object"
@@ -142,7 +233,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "extraPortMappings": {
                     "type": "array",
@@ -153,7 +245,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "image": {
                     "type": "string",
@@ -161,7 +254,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "kubeadmConfigPatches": {
                     "type": "array",
@@ -172,7 +266,20 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "labels": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "role": {
                     "type": "string",
@@ -180,7 +287,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 }
             },
             "type": "object"
@@ -193,7 +301,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "hostPath": {
                     "type": "string",
@@ -201,7 +310,35 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "propagation": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "readOnly": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "selinuxRelabel": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "willReplaceOnChanges": true
                 }
             },
             "type": "object"
@@ -214,7 +351,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "hostPort": {
                     "type": "integer",
@@ -222,7 +360,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "listenAddress": {
                     "type": "string",
@@ -230,7 +369,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 },
                 "protocol": {
                     "type": "string",
@@ -238,7 +378,8 @@
                         "python": {
                             "mapCase": false
                         }
-                    }
+                    },
+                    "willReplaceOnChanges": true
                 }
             },
             "type": "object"
@@ -249,7 +390,6 @@
     },
     "resources": {
         "kind:index/cluster:Cluster": {
-            "description": "## # kind.Cluster\n\nProvides a Kind cluster resource. This can be used to create and delete Kind\nclusters. It does NOT support modification to an existing kind cluster.\n",
             "properties": {
                 "clientCertificate": {
                     "type": "string",
@@ -263,6 +403,10 @@
                     "type": "string",
                     "description": "Client verifies the server certificate with this CA cert.\n"
                 },
+                "completed": {
+                    "type": "boolean",
+                    "description": "Cluster successfully created.\n"
+                },
                 "endpoint": {
                     "type": "string",
                     "description": "Kubernetes APIServer endpoint.\n"
@@ -273,7 +417,8 @@
                 },
                 "kubeconfig": {
                     "type": "string",
-                    "description": "The kubeconfig for the cluster after it is created\n"
+                    "description": "The kubeconfig for the cluster after it is created\n",
+                    "secret": true
                 },
                 "kubeconfigPath": {
                     "type": "string",
@@ -285,7 +430,7 @@
                 },
                 "nodeImage": {
                     "type": "string",
-                    "description": "The node_image that kind will use (ex: kindest/node:v1.15.3).\n"
+                    "description": "The node_image that kind will use (ex: kindest/node:v1.27.1).\n"
                 },
                 "waitForReady": {
                     "type": "boolean",
@@ -296,6 +441,7 @@
                 "clientCertificate",
                 "clientKey",
                 "clusterCaCertificate",
+                "completed",
                 "endpoint",
                 "kubeconfig",
                 "kubeconfigPath",
@@ -305,23 +451,28 @@
             "inputProperties": {
                 "kindConfig": {
                     "$ref": "#/types/kind:index/ClusterKindConfig:ClusterKindConfig",
-                    "description": "The kind_config that kind will use.\n"
+                    "description": "The kind_config that kind will use.\n",
+                    "willReplaceOnChanges": true
                 },
                 "kubeconfigPath": {
                     "type": "string",
-                    "description": "kubeconfig path set after the the cluster is created or by the user to override defaults.\n"
+                    "description": "kubeconfig path set after the the cluster is created or by the user to override defaults.\n",
+                    "willReplaceOnChanges": true
                 },
                 "name": {
                     "type": "string",
-                    "description": "The kind name that is given to the created cluster.\n"
+                    "description": "The kind name that is given to the created cluster.\n",
+                    "willReplaceOnChanges": true
                 },
                 "nodeImage": {
                     "type": "string",
-                    "description": "The node_image that kind will use (ex: kindest/node:v1.15.3).\n"
+                    "description": "The node_image that kind will use (ex: kindest/node:v1.27.1).\n",
+                    "willReplaceOnChanges": true
                 },
                 "waitForReady": {
                     "type": "boolean",
-                    "description": "Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.\n"
+                    "description": "Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.\n",
+                    "willReplaceOnChanges": true
                 }
             },
             "stateInputs": {
@@ -339,75 +490,46 @@
                         "type": "string",
                         "description": "Client verifies the server certificate with this CA cert.\n"
                     },
+                    "completed": {
+                        "type": "boolean",
+                        "description": "Cluster successfully created.\n"
+                    },
                     "endpoint": {
                         "type": "string",
                         "description": "Kubernetes APIServer endpoint.\n"
                     },
                     "kindConfig": {
                         "$ref": "#/types/kind:index/ClusterKindConfig:ClusterKindConfig",
-                        "description": "The kind_config that kind will use.\n"
+                        "description": "The kind_config that kind will use.\n",
+                        "willReplaceOnChanges": true
                     },
                     "kubeconfig": {
                         "type": "string",
-                        "description": "The kubeconfig for the cluster after it is created\n"
+                        "description": "The kubeconfig for the cluster after it is created\n",
+                        "secret": true
                     },
                     "kubeconfigPath": {
                         "type": "string",
-                        "description": "kubeconfig path set after the the cluster is created or by the user to override defaults.\n"
+                        "description": "kubeconfig path set after the the cluster is created or by the user to override defaults.\n",
+                        "willReplaceOnChanges": true
                     },
                     "name": {
                         "type": "string",
-                        "description": "The kind name that is given to the created cluster.\n"
+                        "description": "The kind name that is given to the created cluster.\n",
+                        "willReplaceOnChanges": true
                     },
                     "nodeImage": {
                         "type": "string",
-                        "description": "The node_image that kind will use (ex: kindest/node:v1.15.3).\n"
+                        "description": "The node_image that kind will use (ex: kindest/node:v1.27.1).\n",
+                        "willReplaceOnChanges": true
                     },
                     "waitForReady": {
                         "type": "boolean",
-                        "description": "Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.\n"
+                        "description": "Defines wether or not the provider will wait for the control plane to be ready. Defaults to false.\n",
+                        "willReplaceOnChanges": true
                     }
                 },
                 "type": "object"
-            }
-        }
-    },
-    "language": {
-        "csharp": {
-            "compatibility": "tfbridge20",
-            "namespaces": null,
-            "packageReferences": {
-                "Pulumi": "3.*",
-                "System.Collections.Immutable": "1.6.0"
-            }
-        },
-        "go": {
-            "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pawelprazak/pulumi-kind/sdk/go/kind"
-        },
-        "jvm": {
-            "basePackage": "pl.pawelprazak.pulumi."
-        },
-        "nodejs": {
-            "compatibility": "tfbridge20",
-            "dependencies": {
-                "@pulumi/pulumi": "^3.0.0"
-            },
-            "devDependencies": {
-                "@types/mime": "^2.0.0",
-                "@types/node": "^10.0.0"
-            },
-            "disableUnionOutputTypes": true,
-            "packageDescription": "A Pulumi package for creating and managing kind resources.",
-            "packageName": "@pawelprazak/pulumi-kind",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kyma-incubator/terraform-provider-kind)\n\u003e distributed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-kind` repo](https://github.com/pulumi/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`kyma-incubator/terraform-provider-kind` repo](https://github.com/kyma-incubator/terraform-provider-kind/issues).",
-            "typescriptVersion": ""
-        },
-        "python": {
-            "compatibility": "tfbridge20",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kyma-incubator/terraform-provider-kind)\n\u003e distributed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-kind` repo](https://github.com/pulumi/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`kyma-incubator/terraform-provider-kind` repo](https://github.com/kyma-incubator/terraform-provider-kind/issues).",
-            "requires": {
-                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             }
         }
     }

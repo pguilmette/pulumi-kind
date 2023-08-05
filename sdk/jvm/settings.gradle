@@ -10,5 +10,5 @@ pluginManagement {
   }
 }
 
-rootProject.name = "pl.pawelprazak.pulumi.kind"
+rootProject.name = "pl.pguilmette.pulumi.kind"
 include("lib")

@@ -17,67 +17,23 @@ package kind
 import (
 	"fmt"
 	"path/filepath"
-	"unicode"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kyma-incubator/terraform-provider-kind/kind"
-	"github.com/pawelprazak/pulumi-kind/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
-	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1"
+	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/pguilmette/pulumi-kind/provider/pkg/version"
+	"github.com/tehcyx/terraform-provider-kind/kind"
 )
 
 // all of the token components used below.
 const (
-	// packages:
+	// This variable controls the default name of the package in the package
+	// registries for nodejs and python:
 	mainPkg = "kind"
 	// modules:
-	mainMod = "index" // the main module
-	// the URL used to download the plugin
-	customPluginDownloadPrefix = "https://github.com/pawelprazak/pulumi-kind/releases/download"
+	mainMod = "index" // the kind module
 )
-
-// makeMember manufactures a type token for the package and the given module and type.
-func makeMember(mod string, mem string) tokens.ModuleMember {
-	return tokens.ModuleMember(mainPkg + ":" + mod + ":" + mem)
-}
-
-// makeType manufactures a type token for the package and the given module and type.
-func makeType(mod string, typ string) tokens.Type {
-	return tokens.Type(makeMember(mod, typ))
-}
-
-// makeDataSource manufactures a standard resource token given a module and resource name.  It
-// automatically uses the main package and names the file by simply lower casing the data source's
-// first character.
-//func makeDataSource(mod string, res string) tokens.ModuleMember {
-//	fn := string(unicode.ToLower(rune(res[0]))) + res[1:]
-//	return makeMember(mod+"/"+fn, res)
-//}
-
-// makeResource manufactures a standard resource token given a module and resource name.  It
-// automatically uses the main package and names the file by simply lower casing the resource's
-// first character.
-func makeResource(mod string, res string) tokens.Type {
-	fn := string(unicode.ToLower(rune(res[0]))) + res[1:]
-	return makeType(mod+"/"+fn, res)
-}
-
-// boolRef returns a reference to the bool argument.
-//func boolRef(b bool) *bool {
-//	return &b
-//}
-
-// stringValue gets a string value from a property map if present, else ""
-//func stringValue(vars resource.PropertyMap, prop resource.PropertyKey) string {
-//	val, ok := vars[prop]
-//	if ok && val.IsString() {
-//		return val.StringValue()
-//	}
-//	return ""
-//}
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
 // It should validate that the provider can be configured, and provide actionable errors in the case
@@ -87,45 +43,85 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 	return nil
 }
 
-// managedByPulumi is a default used for some managed resources, in the absence of something more meaningful.
-//var managedByPulumi = &tfbridge.DefaultInfo{Value: "Managed by Pulumi"}
-
-func refProviderLicense(license tfbridge.TFProviderLicense) *tfbridge.TFProviderLicense {
-	return &license
-}
-
-func customPluginDownloadURL() string {
-	return fmt.Sprintf("%s/v%s", customPluginDownloadPrefix, version.Version)
-}
-
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv1.NewProvider(kind.Provider().(*schema.Provider))
+	p := shimv2.NewProvider(kind.Provider())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:                    p,
-		Name:                 "kind",
-		Description:          "A Pulumi package for creating and managing kind resources.",
-		Keywords:             []string{"pulumi", "kind"},
-		License:              "Apache-2.0",
-		Homepage:             "https://pulumi.io",
-		Repository:           "https://github.com/pawelprazak/pulumi-kind",
-		GitHubOrg:            "kyma-incubator",
-		TFProviderLicense:    refProviderLicense(tfbridge.Apache20LicenseType),
-		Config:               map[string]*tfbridge.SchemaInfo{},
+		P:    p,
+		Name: "kind",
+		// DisplayName is a way to be able to change the casing of the provider
+		// name when being displayed on the Pulumi registry
+		DisplayName: "Kind",
+		// The default publisher for all packages is Pulumi.
+		// Change this to your personal name (or a company name) that you
+		// would like to be shown in the Pulumi Registry if this package is published
+		// there.
+		Publisher: "pguilmette",
+		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
+		// if this package is published there.
+		//
+		// You may host a logo on a domain you control or add an SVG logo for your package
+		// in your repository and use the raw content URL for that file as your logo URL.
+		LogoURL: "",
+		// PluginDownloadURL is an optional URL used to download the Provider
+		// for use in Pulumi programs
+		// e.g https://github.com/org/pulumi-provider-name/releases/
+		PluginDownloadURL: "github://api.github.com/pguilmette",
+		//PluginDownloadURL: "",
+		Description: "A Pulumi package for creating and managing kind cloud resources.",
+		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
+		// For all available categories, see `Keywords` in
+		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
+		Keywords:   []string{"pulumi", "kind", "kubernetes", "category/cloud"},
+		License:    "Apache-2.0",
+		Homepage:   "https://www.pulumi.com",
+		Repository: "https://github.com/pguilmette/pulumi-kind",
+		// The GitHub Org for the provider - defaults to `terraform-providers`. Note that this
+		// should match the TF provider module's require directive, not any replace directives.
+		GitHubOrg: "tehcyx",
+		Config:    map[string]*tfbridge.SchemaInfo{
+			// Add any required configuration here, or remove the example below if
+			// no additional points are required.
+			// "region": {
+			// 	Type: tfbridge.MakeType("region", "Region"),
+			// 	Default: &tfbridge.DefaultInfo{
+			// 		EnvVars: []string{"AWS_REGION", "AWS_DEFAULT_REGION"},
+			// 	},
+			// },
+		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.
-			"kind_cluster": {Tok: makeResource(mainMod, "Cluster")},
+			//
+			"kind_cluster": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cluster"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"kubeconfig": {
+						Secret: tfbridge.True(),
+					},
+				},
+			},
+			// "aws_iam_role": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "IamRole")}
+			//
+			// "aws_acm_certificate": {
+			// 	Tok: tfbridge.MakeResource(mainPkg, mainMod, "Certificate"),
+			// 	Fields: map[string]*tfbridge.SchemaInfo{
+			// 		"tags": {Type: tfbridge.MakeType(mainPkg, "Tags")},
+			// 	},
+			// },
 		},
-		PluginDownloadURL: customPluginDownloadURL(),
-		DataSources:       map[string]*tfbridge.DataSourceInfo{},
+		DataSources: map[string]*tfbridge.DataSourceInfo{
+			// Map each resource in the Terraform provider to a Pulumi function. An example
+			// is below.
+			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAmi")},
+		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@pawelprazak/pulumi-kind",
+			PackageName: "@pguilmette/pulumi-kind",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
@@ -147,7 +143,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pawelprazak/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/pguilmette/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -156,12 +152,11 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
-				"Pulumi":                       "3.*",
-				"System.Collections.Immutable": "1.6.0",
+				"Pulumi": "3.*",
 			},
 		},
-		JVM: &tfbridge.JVMInfo{
-			BasePackage: "pl.pawelprazak.pulumi.",
+		Java: &tfbridge.JavaInfo{
+			BasePackage: "com.pguilmette",
 		},
 	}
 
