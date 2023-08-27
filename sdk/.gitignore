@@ -3,4 +3,4 @@
 /python/bin/
 /jvm/.gradle
 /jvm/build
-/jvm/src/main/resources/pl/pawelprazak/pulumi/kind/version.txt
+/jvm/src/main/resources/pl/pguilmette/pulumi/kind/version.txt

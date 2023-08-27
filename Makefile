@@ -1,7 +1,7 @@
 PROJECT_NAME := Pulumi Kind Package
 
 PACK             := kind
-ORG              := pawelprazak
+ORG              := pguilmette
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @${ORG}/pulumi-${PACK}
 TF_NAME          := ${PACK}
@@ -10,7 +10,7 @@ VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
-VERSION         := $(shell pulumictl get version)
+VERSION         := $(shell ./pulumictl get version)
 
 TESTPARALLELISM := 2
 
@@ -64,7 +64,7 @@ provider:: tfgen install_plugins # build the provider binary
 
 build_sdks:: install_plugins provider build_nodejs build_python build_go build_jvm build_dotnet # build all the sdks
 
-build_nodejs:: NODEJS_VERSION := $(shell pulumictl get version --language javascript)
+build_nodejs:: NODEJS_VERSION := $(shell ./pulumictl get version --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
@@ -73,7 +73,7 @@ build_nodejs:: install_plugins tfgen # build the node sdk
         cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
     	sed -i.bak -e "s/\$${VERSION}/$(NODEJS_VERSION)/g" ./bin/package.json
 
-build_python:: PYPI_VERSION := $(shell pulumictl get version --language python)
+build_python:: PYPI_VERSION := $(shell ./pulumictl get version --language python)
 build_python:: install_plugins tfgen # build the python sdk
 	$(WORKING_DIR)/bin/$(TFGEN) python --overlays provider/overlays/python --out sdk/python/
 	cd sdk/python/ && \
@@ -84,9 +84,9 @@ build_python:: install_plugins tfgen # build the python sdk
         rm ./bin/setup.py.bak && \
         cd ./bin && python3 setup.py build sdist
 
-build_dotnet:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
+build_dotnet:: DOTNET_VERSION := $(shell ./pulumictl get version --language dotnet)
 build_dotnet:: install_plugins tfgen # build the dotnet sdk
-	pulumictl get version --language dotnet
+	./pulumictl get version --language dotnet
 	$(WORKING_DIR)/bin/$(TFGEN) dotnet --overlays provider/overlays/dotnet --out sdk/dotnet/
 	cd sdk/dotnet/ && \
 		echo "${DOTNET_VERSION}" >version.txt && \
@@ -95,8 +95,8 @@ build_dotnet:: install_plugins tfgen # build the dotnet sdk
 build_jvm:: install_plugins tfgen # build the jvm sdk
 	$(WORKING_DIR)/bin/$(TFGEN) jvm --overlays provider/overlays/jvm --out sdk/jvm/
 	cd $(WORKING_DIR)/sdk/jvm && \
-		mkdir -p src/main/resources/pl/pawelprazak/pulumi/$(PACK) && \
-		echo "${VERSION}" > src/main/resources/pl/pawelprazak/pulumi/$(PACK)/version.txt && \
+		mkdir -p src/main/resources/pl/pguilmette/pulumi/$(PACK) && \
+		echo "${VERSION}" > src/main/resources/pl/pguilmette/pulumi/$(PACK)/version.txt && \
 		gradle -Pversion=${VERSION} build
 
 build_go:: install_plugins tfgen # build the go sdk

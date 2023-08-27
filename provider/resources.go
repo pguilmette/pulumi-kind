@@ -21,7 +21,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/kyma-incubator/terraform-provider-kind/kind"
-	"github.com/pawelprazak/pulumi-kind/provider/pkg/version"
+	"github.com/pguilmette/pulumi-kind/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv1 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1"
@@ -36,7 +36,7 @@ const (
 	// modules:
 	mainMod = "index" // the main module
 	// the URL used to download the plugin
-	customPluginDownloadPrefix = "https://github.com/pawelprazak/pulumi-kind/releases/download"
+	customPluginDownloadPrefix = "https://github.com/pguilmette/pulumi-kind/releases/download"
 )
 
 // makeMember manufactures a type token for the package and the given module and type.
@@ -111,7 +111,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:             []string{"pulumi", "kind"},
 		License:              "Apache-2.0",
 		Homepage:             "https://pulumi.io",
-		Repository:           "https://github.com/pawelprazak/pulumi-kind",
+		Repository:           "https://github.com/pguilmette/pulumi-kind",
 		GitHubOrg:            "kyma-incubator",
 		TFProviderLicense:    refProviderLicense(tfbridge.Apache20LicenseType),
 		Config:               map[string]*tfbridge.SchemaInfo{},
@@ -125,7 +125,7 @@ func Provider() tfbridge.ProviderInfo {
 		PluginDownloadURL: customPluginDownloadURL(),
 		DataSources:       map[string]*tfbridge.DataSourceInfo{},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@pawelprazak/pulumi-kind",
+			PackageName: "@pguilmette/pulumi-kind",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
@@ -147,7 +147,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pawelprazak/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/pguilmette/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -161,7 +161,7 @@ func Provider() tfbridge.ProviderInfo {
 			},
 		},
 		JVM: &tfbridge.JVMInfo{
-			BasePackage: "pl.pawelprazak.pulumi.",
+			BasePackage: "pl.pguilmette.pulumi.",
 		},
 	}
 

@@ -1,106 +1,18 @@
-# Pulumi Provider for kind
+# `pulumictl` - A Swiss Army Knife for Pulumi Development
 
-This is **experimental project**, for demonstration purposes, **do not use in production**.
+`pulumictl` is a utility with an intial aim of replacing all Bash, Python and Go scripts used for developing Pulumi, which are often duplicated (un-updated) across repositories. It will do this via the proven "Embrace - Extend - Extinguish" methodology, providing a single binary available via Homebrew (through a custom tap) or GitHub releases for several platforms.
 
-The Pulumi Provider for *kind* enables [Pulumi](https://www.pulumi.com) to provision local [Kubernetes](https://kubernetes.io) 
-clusters on base of [Kubernetes IN Docker (kind)](https://github.com/kubernetes-sigs/kind).
+The eventual aim is to provide a utility capable of performing hermetic builds of Pulumi components both locally and in Continuous Integration in order to remove variability and frustration from developer environments.
 
-## Development
-This provider is a Terraform Bridge for [terraform-provider-kind](https://github.com/kyma-incubator/terraform-provider-kind).
+_*Important Note:* This tool is only intended for use by people working on Pulumi itself, not for those using Pulumi to provision infrastructure!_
 
-### Creating a Pulumi Terraform Bridge Provider
+## Installation
 
-First, clone this repo with the name of the desired provider in place of `kind`:
+Add the Pulumi homebrew tap and install:
 
-```
-git clone https://github.com/pulumi/pulumi-tf-provider-boilerplate pulumi-kind
-```
-
-Second, replace references to `kind` with the name of your provider:
-
-```
-make prepare NAME=kind REPOSITORY=github.com/pawelprazak/pulumi-kind
-```
-
-Next, list the configuration points for the provider in the area of the README.
-
-> Note: If the name of the desired Pulumi provider differs from the name of the Terraform provider, you will need to carefully distinguish between the references - see https://github.com/pulumi/pulumi-azure for an example.
-
-#### Adding dependencies
-
-In order to properly build the sdks, the following tools are expected:
-- `pulumictl` (See the project's README for installation instructions: https://github.com/pulumi/pulumictl)
-
-In the root of the repository, run:
-
-- `(cd provider && go get github.com/kyma-incubator/terraform-provider-kind)`  (where `kind` is the name of the provider - note the parenthesis to run this in a subshell)
-- `(cd provider && go mod download)`
-
-#### Building the provider
-
-- Edit `provider/resources.go` to map each resource, and specify provider information
-- `make build_sdks`
-
-#### Testing locally
 ```bash
-make clean cleanup cleanup_local
-make provider lint_provider
-make install_local
-make build_nodejs
-make install_nodejs_sdk
-make test
+brew tap pulumi/tap
+brew install pulumictl
 ```
 
-### Release
-```bash
-export GITHUB_TOKEN="..."
-make tag
-make prerelease_snapshot
-make release
-```
-
-## Installing
-To manually install the plugin ([pulumi #13](https://github.com/pulumi/pulumi-tf-provider-boilerplate/issues/13)), e.g.:
-```bash
-pulumi plugin install resource kind v0.0.1-alpha.1621596329+ac2e0588 --server https://github.com/pawelprazak/pulumi-kind/releases/download/v0.0.1-alpha.1621596329+ac2e0588
-```
-
-This package is available in many languages in the standard packaging formats.
-
-### Node.js (JavaScript/TypeScript)
-
-To use from JavaScript or TypeScript in Node.js, install using either `npm`:
-
-    $ npm install @pawelprazak/pulumi-kind
-
-or `yarn`:
-
-    $ yarn add @pawelprazak/pulumi-kind
-
-### Python
-> Not published. I don't have a present need for this.
-> If you do please open a pull request with instructions for how to publish a PIP package.
-
-To use from Python, install using `pip`:
-
-    $ pip install pulumi_kind
-
-### .NET
-> Not published. I don't have a present need for this. 
-> If you do please open a pull request with instructions for how to publish a .NET package.
-
-### Go
-
-To use from Go, use `go get` to grab the latest version of the library
-
-    $ go get github.com/pawelprazak/pulumi-kind/sdk/go/...
-
-## Configuration
-TODO
-
-## Reference
-TODO
-
-For detailed reference documentation, please visit [the API docs][1].
-
-[1]: https://www.pulumi.com/docs/reference/pkg/kind/
+Or download the binary directly from Github releases and place it in your `$PATH`
