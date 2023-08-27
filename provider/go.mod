@@ -1,4 +1,4 @@
-module github.com/pawelprazak/pulumi-kind/provider
+module github.com/pguilmette/pulumi-kind/provider
 
 go 1.16
 
@@ -12,10 +12,4 @@ require (
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.0.0
 	github.com/pulumi/pulumi/sdk/v3 v3.5.2-0.20210623115523-414367963f50
 	k8s.io/utils v0.0.0-20200619165400-6e3d28b6ed19 // indirect
-)
-
-replace (
-	github.com/pulumi/pulumi-terraform-bridge/v3 => /Users/pprazak/repos/vl/pulumi-terraform-bridge
-	github.com/pulumi/pulumi/pkg/v3 => /Users/pprazak/repos/vl/pulumi/pkg
-	github.com/pulumi/pulumi/sdk/v3 => /Users/pprazak/repos/vl/pulumi/sdk
 )

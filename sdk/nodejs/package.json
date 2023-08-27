@@ -1,5 +1,5 @@
 {
-    "name": "@pawelprazak/pulumi-kind",
+    "name": "@pguilmette/pulumi-kind",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing kind resources.",
     "keywords": [
@@ -7,7 +7,7 @@
         "kind"
     ],
     "homepage": "https://pulumi.io",
-    "repository": "https://github.com/pawelprazak/pulumi-kind",
+    "repository": "https://github.com/pguilmette/pulumi-kind",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc"
@@ -21,6 +21,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/pawelprazak/pulumi-kind/releases/download/v0.0.1-alpha.1639419708+04c1684f.dirty"
+        "pluginDownloadURL": "https://github.com/pguilmette/pulumi-kind/releases/download/v0.0.1-alpha.1639419708+04c1684f.dirty"
     }
 }

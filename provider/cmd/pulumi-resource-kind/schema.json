@@ -8,8 +8,8 @@
     "homepage": "https://pulumi.io",
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`kind` Terraform Provider](https://github.com/kyma-incubator/terraform-provider-kind).",
-    "repository": "https://github.com/pawelprazak/pulumi-kind",
-    "pluginDownloadURL": "https://github.com/pawelprazak/pulumi-kind/releases/download/v0.0.1-alpha.1639496844+4e497e16.dirty",
+    "repository": "https://github.com/pguilmette/pulumi-kind",
+    "pluginDownloadURL": "https://github.com/pguilmette/pulumi-kind/releases/download/v0.0.1-alpha.1639496844+4e497e16.dirty",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },
@@ -383,10 +383,10 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pawelprazak/pulumi-kind/sdk/go/kind"
+            "importBasePath": "github.com/pguilmette/pulumi-kind/sdk/go/kind"
         },
         "jvm": {
-            "basePackage": "pl.pawelprazak.pulumi."
+            "basePackage": "pl.pguilmette.pulumi."
         },
         "nodejs": {
             "compatibility": "tfbridge20",
@@ -399,7 +399,7 @@
             },
             "disableUnionOutputTypes": true,
             "packageDescription": "A Pulumi package for creating and managing kind resources.",
-            "packageName": "@pawelprazak/pulumi-kind",
+            "packageName": "@pguilmette/pulumi-kind",
             "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kyma-incubator/terraform-provider-kind)\n\u003e distributed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-kind` repo](https://github.com/pulumi/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`kyma-incubator/terraform-provider-kind` repo](https://github.com/kyma-incubator/terraform-provider-kind/issues).",
             "typescriptVersion": ""
         },

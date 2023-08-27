@@ -12,7 +12,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'kind', '${PLUGIN_VERSION}', '--server', 'https://github.com/pawelprazak/pulumi-kind/releases/download/0.0.1-alpha.1623052915+6e8724cc.dirty'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'kind', '${PLUGIN_VERSION}', '--server', 'https://github.com/pguilmette/pulumi-kind/releases/download/0.0.1-alpha.1623052915+6e8724cc.dirty'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print("""
@@ -42,7 +42,7 @@ setup(name='pulumi_kind',
       keywords='pulumi kind',
       url='https://pulumi.io',
       project_urls={
-          'Repository': 'https://github.com/pawelprazak/pulumi-kind'
+          'Repository': 'https://github.com/pguilmette/pulumi-kind'
       },
       license='Apache-2.0',
       packages=find_packages(),

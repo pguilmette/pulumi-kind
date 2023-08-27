@@ -7,7 +7,7 @@
     <Description>A Pulumi package for creating and managing kind resources.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://pulumi.io</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/pawelprazak/pulumi-kind</RepositoryUrl>
+    <RepositoryUrl>https://github.com/pguilmette/pulumi-kind</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
     <TargetFramework>net6.0</TargetFramework>

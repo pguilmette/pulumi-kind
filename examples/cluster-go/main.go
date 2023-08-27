@@ -1,7 +1,7 @@
 package main
 
 import (
-	kind "github.com/pawelprazak/pulumi-kind/sdk/kind"
+	kind "github.com/pguilmette/pulumi-kind/sdk/kind"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

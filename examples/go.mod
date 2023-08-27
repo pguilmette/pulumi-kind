@@ -1,4 +1,4 @@
-module github.com/pawelprazak/pulumi-kind/examples
+module github.com/pguilmette/pulumi-kind/examples
 
 go 1.16
 

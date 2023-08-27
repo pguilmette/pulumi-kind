@@ -1,7 +1,7 @@
 package main
 
 import (
-	kind "github.com/pawelprazak/pulumi-kind/sdk/kind"
+	kind "github.com/pguilmette/pulumi-kind/sdk/kind"
 	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
