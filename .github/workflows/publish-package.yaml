@@ -1,0 +1,29 @@
+name: Publish Pulumi.Kind
+
+on:
+  workflow_dispatch:
+
+env:
+    DOTNETVERSION: 6.x
+    NUGET_PUBLISH_KEY: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  publish-dotnet:
+    steps:
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNETVERSION }}
+      - name: Download dotnet SDK
+        uses: actions/download-artifact@v2
+        with:
+          name: dotnet-sdk.tar.gz
+          path: ${{ github.workspace }}/sdk/
+      - name: Uncompress dotnet SDK
+        run: tar -zxf ${{ github.workspace }}/sdk/dotnet.tar.gz -C
+          ${{ github.workspace }}/sdk/dotnet
+        shell: bash
+      - name: Publish dotnet SDK
+        run: find "${{ github.workspace }}/sdk/dotnet/bin/Debug/" -name 'Pulumi.*.nupkg'
+          -exec dotnet nuget push -k "${NUGET_PUBLISH_KEY}" -s https://nuget.pkg.github.com/pguilmette/index.json {} \;
+        shell: bash
