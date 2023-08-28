@@ -93,8 +93,6 @@ To use from .NET, use `dotnet add package` to grab the latest version of the lib
     $ dotnet add package Pulumi.Kind
 
 ### Go
-> Not published. I don't have a present need for this.
-
 To use from Go, use `go get` to grab the latest version of the library
 
     $ go get github.com/pguilmette/pulumi-kind/sdk/go/...
