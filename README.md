@@ -62,12 +62,13 @@ make release
 ## Installing
 To manually install the plugin ([pulumi #13](https://github.com/pulumi/pulumi-tf-provider-boilerplate/issues/13)), e.g.:
 ```bash
-pulumi plugin install resource kind v0.0.1 --server https://github.com/pguilmette/pulumi-kind/releases/download/v0.0.1
+pulumi plugin install resource kind v0.0.3 --server https://github.com/pguilmette/pulumi-kind/releases/download/v0.0.3
 ```
 
 This package is available in many languages in the standard packaging formats.
 
 ### Node.js (JavaScript/TypeScript)
+> Not published. I don't have a present need for this.
 
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
@@ -92,10 +93,14 @@ To use from .NET, use `dotnet add package` to grab the latest version of the lib
     $ dotnet add package Pulumi.Kind
 
 ### Go
+> Not published. I don't have a present need for this.
 
 To use from Go, use `go get` to grab the latest version of the library
 
     $ go get github.com/pguilmette/pulumi-kind/sdk/go/...
+
+### Java
+> Not published. I don't have a present need for this.
 
 ## Configuration
 TODO
