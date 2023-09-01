@@ -5,6 +5,7 @@ on:
     - opened
   schedule:
     - cron: '0 5 * * *'
+  workflow_dispatch: {}
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
@@ -13,4 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Call upgrade provider action
-      uses: pulumi/pulumi-upgrade-provider-action@main
+      uses: pulumi/pulumi-upgrade-provider-action@v0.0.5
+      with:
+        kind: all
