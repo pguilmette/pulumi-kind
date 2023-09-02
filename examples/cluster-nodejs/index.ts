@@ -1,5 +1,5 @@
-// @ts-ignore because it's provided by yarn link @pguilmette/pulumi-kind
-import * as kind from "@pguilmette/pulumi-kind";
+// @ts-ignore because it's provided by yarn link @pguilmettenmedia/pulumi-kind
+import * as kind from "@pguilmettenmedia/pulumi-kind";
 
 let cluster = new kind.Cluster("pulumi-cluster-alone-nodejs", {
     kindConfig: {
