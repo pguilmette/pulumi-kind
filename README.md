@@ -68,15 +68,13 @@ pulumi plugin install resource kind v0.0.3 --server https://github.com/pguilmett
 This package is available in many languages in the standard packaging formats.
 
 ### Node.js (JavaScript/TypeScript)
-> Not published. I don't have a present need for this.
-
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-    $ npm install @pguilmette/pulumi-kind
+    $ npm install @pguilmettenmedia/pulumi-kind
 
 or `yarn`:
 
-    $ yarn add @pguilmette/pulumi-kind
+    $ yarn add @pguilmettenmedia/pulumi-kind
 
 ### Python
 > Not published. I don't have a present need for this.
