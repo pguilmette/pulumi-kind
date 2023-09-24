@@ -1,5 +1,5 @@
 {
-    "name": "@pguilmettenmedia/pulumi-kind",
+    "name": "@pguilmette/pulumi-kind",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing kind cloud resources.",
     "keywords": [

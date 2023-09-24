@@ -121,7 +121,7 @@ func Provider() tfbridge.ProviderInfo {
 			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAmi")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@pguilmettenmedia/pulumi-kind",
+			PackageName: "@pguilmette/pulumi-kind",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
