@@ -44,7 +44,7 @@
             },
             "disableUnionOutputTypes": true,
             "packageDescription": "A Pulumi package for creating and managing kind cloud resources.",
-            "packageName": "@pguilmette/pulumi-kind",
+            "packageName": "@pguilmettenmedia/pulumi-kind",
             "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/tehcyx/terraform-provider-kind)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kind` repo](https://github.com/pguilmette/pulumi-kind/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kind` repo](https://github.com/tehcyx/terraform-provider-kind/issues).",
             "typescriptVersion": ""
         },

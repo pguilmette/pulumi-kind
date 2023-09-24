@@ -70,11 +70,11 @@ This package is available in many languages in the standard packaging formats.
 ### Node.js (JavaScript/TypeScript)
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-    $ npm install @pguilmette/pulumi-kind
+    $ npm install @pguilmettenmedia/pulumi-kind
 
 or `yarn`:
 
-    $ yarn add @pguilmette/pulumi-kind
+    $ yarn add @pguilmettenmedia/pulumi-kind
 
 ### Python
 > Not published. I don't have a present need for this.
