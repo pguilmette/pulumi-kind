@@ -158,7 +158,7 @@ jobs:
           echo "done publishing packages"
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         dotnetversion:
           - 6.0.x
